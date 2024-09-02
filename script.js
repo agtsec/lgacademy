@@ -1,115 +1,29 @@
-document.getElementById('registroForm').addEventListener('submit', function(event) {
+document.getElementById('registration-form').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const nombre = document.getElementById('nombre').value;
-    const edad = document.getElementById('edad').value;
-    const academia = document.getElementById('academia').value;
-    const direccion = document.getElementById('direccion').value;
-    const telefono = document.getElementById('telefono').value;
+    const name = document.getElementById('name').value;
+    const age = document.getElementById('age').value;
+    const academy = document.getElementById('academy').value;
+    const address = document.getElementById('address').value;
+    const phone = document.getElementById('phone').value;
 
-    // Aquí podríamos guardar los datos en una base de datos o simplemente mostrarlos en la tabla
+    // Aquí guardas los datos en una base de datos o local storage
+    // Ejemplo con localStorage:
+    const userData = { name, age, academy, address, phone };
+    localStorage.setItem('user_' + phone, JSON.stringify(userData));
 
-    const newRow = `
-        <tr>
-            <td>${nombre}</td>
-            <td>${edad}</td>
-            <td>${academia}</td>
-            <td>${direccion}</td>
-            <td>${telefono}</td>
-        </tr>
-    `;
+    // Añadir la fila a la tabla
+    const table = document.getElementById('ratings-table').getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
 
-    document.querySelector('#tablaCalificaciones tbody').insertAdjacentHTML('beforeend', newRow);
+    newRow.insertCell(0).textContent = name;
+    newRow.insertCell(1).textContent = ''; // Condición
+    newRow.insertCell(2).textContent = ''; // Técnica
+    newRow.insertCell(3).textContent = ''; // Flexibilidad
+    newRow.insertCell(4).textContent = ''; // Expresión Corporal
+    newRow.insertCell(5).textContent = ''; // Flujo de Movimientos
+    newRow.insertCell(6).textContent = ''; // Percepción Auditiva
 
     // Limpiar el formulario
-    document.getElementById('registroForm').reset();
+    document.getElementById('registration-form').reset();
 });
-// Configuración de Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyACNNOpNzgVyBLyXLelJv4Zh5bGBgcTA5E",
-    authDomain: "lg-academy-f0c8e.firebaseapp.com",
-    projectId: "lg-academy-f0c8e",
-    storageBucket: "lg-academy-f0c8e.appspot.com",
-    messagingSenderId: "1097625112750",
-    appId: "1:1097625112750:web:a7513c04064ccbc3889d3f"
-    measurementId:"G-6WZL62QSZV"
-
-};
-
-// Inicializar Firebase
-firebase.initializeApp(firebaseConfig);
-
-// Referencias a la autenticación y la base de datos
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-// Manejar el registro de nuevos usuarios
-document.getElementById('registroForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    auth.createUserWithEmailAndPassword(email, password)
-        .then(userCredential => {
-            // Usuario registrado
-            const user = userCredential.user;
-            alert("Usuario registrado exitosamente");
-        })
-        .catch(error => {
-            alert(error.message);
-        });
-});
-
-// Manejar el inicio de sesión
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-
-    auth.signInWithEmailAndPassword(email, password)
-        .then(userCredential => {
-            // Usuario autenticado
-            const user = userCredential.user;
-            alert("Sesión iniciada");
-            cargarDatosUsuario(user.uid);
-        })
-        .catch(error => {
-            alert(error.message);
-        });
-});
-
-// Cargar los datos del usuario autenticado
-function cargarDatosUsuario(uid) {
-    db.collection("usuarios").doc(uid).get().then(doc => {
-        if (doc.exists) {
-            const userData = doc.data();
-            // Mostrar datos del usuario en la tabla
-        } else {
-            console.log("No se encontraron datos");
-        }
-    }).catch(error => {
-        console.log("Error al obtener el documento:", error);
-    });
-}
-auth.createUserWithEmailAndPassword(email, password)
-    .then(userCredential => {
-        const user = userCredential.user;
-        // Guardar los datos del usuario en Firestore
-        return db.collection("usuarios").doc(user.uid).set({
-            nombre: nombre,
-            edad: edad,
-            academia: academia,
-            direccion: direccion,
-            telefono: telefono,
-            rol: "usuario"  // Cambiar a "admin" si es necesario
-        });
-    })
-    .then(() => {
-        alert("Usuario registrado exitosamente");
-    })
-    .catch(error => {
-        alert(error.message);
-    });
-
