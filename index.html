@@ -1,4 +1,39 @@
-<form id="registrationForm">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academia de Baile</title>
+
+  <!-- Aquí puedes agregar tus estilos o enlaces a Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Agrega el script de Firebase aquí si prefieres cargarlo en el head -->
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  
+  <script>
+    // Tu configuración de Firebase
+    var firebaseConfig = {
+      apiKey: "TU_API_KEY",
+      authDomain: "TU_PROJECT_ID.firebaseapp.com",
+      projectId: "TU_PROJECT_ID",
+      storageBucket: "TU_PROJECT_ID.appspot.com",
+      messagingSenderId: "TU_MESSAGING_SENDER_ID",
+      appId: "TU_APP_ID"
+    };
+    // Inicializa Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</head>
+<body>
+  
+  <!-- Contenido de la página -->
+  <div class="container">
+    <h1>Registro para la Academia de Baile</h1>
+    <!-- Aquí irá el formulario de registro -->
+    <form id="registrationForm">
   <label for="name">Nombre:</label>
   <input type="text" id="name" name="name">
   
@@ -22,3 +57,22 @@
   <button type="submit">Registrar</button>
 </form>
 
+  </div>
+
+  <!-- Agrega el script de Firebase justo antes de cerrar el body si prefieres cargarlo al final -->
+  <!-- También puedes colocar aquí el script de Firebase en lugar de en el head -->
+  <script>
+    // Código adicional para manejar Firestore o autenticación
+    var db = firebase.firestore();
+    db.collection("test").add({
+      prueba: "Hola Firebase!"
+    })
+    .then((docRef) => {
+      console.log("Documento agregado con ID: ", docRef.id);
+    })
+    .catch((error) => {
+      console.error("Error al agregar documento: ", error);
+    });
+  </script>
+</body>
+</html>
