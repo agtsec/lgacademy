@@ -1,46 +1,46 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LG Academy - Registro</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Firebase App (the core Firebase SDK) -->
-<script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-firestore.js"></script>
-
+    <title>Academia de Baile</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Registro de Usuarios</h1>
-    <form id="registroForm">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
+    <h1>Registro de Usuario</h1>
+    <form id="registration-form">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required><br>
 
-        <label for="edad">Edad:</label>
-        <input type="number" id="edad" name="edad" required>
+        <label for="age">Edad:</label>
+        <input type="number" id="age" name="age" required><br>
 
-        <label for="academia">Academia:</label>
-        <select id="academia" name="academia" required>
+        <label for="academy">Academia:</label>
+        <select id="academy" name="academy" required>
             <option value="Apodaca">Apodaca</option>
             <option value="Juárez">Juárez</option>
             <option value="Escobedo">Escobedo</option>
             <option value="San Nicolás">San Nicolás</option>
-        </select>
+        </select><br>
 
-        <label for="direccion">Dirección:</label>
-        <input type="text" id="direccion" name="direccion" required>
+        <label for="address">Dirección:</label>
+        <input type="text" id="address" name="address" required><br>
 
-        <label for="telefono">Teléfono:</label>
-        <input type="tel" id="telefono" name="telefono" required>
+        <label for="phone">Número de Teléfono:</label>
+        <input type="tel" id="phone" name="phone" required><br>
+
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required><br>
 
         <button type="submit">Registrar</button>
     </form>
 
     <h2>Tabla de Calificaciones</h2>
-    <table id="tablaCalificaciones">
+    <table id="ratings-table">
         <thead>
             <tr>
+                <th>Nombre</th>
                 <th>Condición</th>
                 <th>Técnica</th>
                 <th>Flexibilidad</th>
@@ -50,46 +50,11 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Las filas se agregarán dinámicamente aquí -->
+            <!-- Aquí se agregarán las filas con los registros -->
         </tbody>
     </table>
 
     <script src="script.js"></script>
 </body>
 </html>
-<h2>Iniciar Sesión</h2>
-<form id="loginForm">
-    <label for="loginEmail">Email:</label>
-    <input type="email" id="loginEmail" required>
-
-    <label for="loginPassword">Contraseña:</label>
-    <input type="password" id="loginPassword" required>
-
-    <button type="submit">Iniciar Sesión</button>
-</form>
-
-<div id="adminSection" style="display:none;">
-    <h2>Editar Tabla de Calificaciones</h2>
-    <form id="adminForm">
-        <label for="condicion">Condición:</label>
-        <input type="text" id="condicion" required>
-        
-        <label for="tecnica">Técnica:</label>
-        <input type="text" id="tecnica" required>
-        
-        <label for="flexibilidad">Flexibilidad:</label>
-        <input type="text" id="flexibilidad" required>
-        
-        <label for="expresionCorporal">Expresión Corporal:</label>
-        <input type="text" id="expresionCorporal" required>
-        
-        <label for="flujoMovimientos">Flujo de Movimientos:</label>
-        <input type="text" id="flujoMovimientos" required>
-        
-        <label for="percepcionAuditiva">Percepción Auditiva:</label>
-        <input type="text" id="percepcionAuditiva" required>
-
-        <button type="submit">Guardar Cambios</button>
-    </form>
-</div>
 
