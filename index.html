@@ -57,4 +57,39 @@
     <script src="script.js"></script>
 </body>
 </html>
+<h2>Iniciar Sesión</h2>
+<form id="loginForm">
+    <label for="loginEmail">Email:</label>
+    <input type="email" id="loginEmail" required>
+
+    <label for="loginPassword">Contraseña:</label>
+    <input type="password" id="loginPassword" required>
+
+    <button type="submit">Iniciar Sesión</button>
+</form>
+
+<div id="adminSection" style="display:none;">
+    <h2>Editar Tabla de Calificaciones</h2>
+    <form id="adminForm">
+        <label for="condicion">Condición:</label>
+        <input type="text" id="condicion" required>
+        
+        <label for="tecnica">Técnica:</label>
+        <input type="text" id="tecnica" required>
+        
+        <label for="flexibilidad">Flexibilidad:</label>
+        <input type="text" id="flexibilidad" required>
+        
+        <label for="expresionCorporal">Expresión Corporal:</label>
+        <input type="text" id="expresionCorporal" required>
+        
+        <label for="flujoMovimientos">Flujo de Movimientos:</label>
+        <input type="text" id="flujoMovimientos" required>
+        
+        <label for="percepcionAuditiva">Percepción Auditiva:</label>
+        <input type="text" id="percepcionAuditiva" required>
+
+        <button type="submit">Guardar Cambios</button>
+    </form>
+</div>
 
