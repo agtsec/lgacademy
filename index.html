@@ -27,6 +27,40 @@
     // Inicializa Firebase
     
     firebase.initializeApp(firebaseConfig);
+    <script>
+  // Inicializa Firestore
+  var db = firebase.firestore();
+
+  // Escucha el envío del formulario
+  document.getElementById("registrationForm").addEventListener("submit", function(event){
+    event.preventDefault(); // Prevenir que la página se recargue
+
+    // Captura los datos del formulario
+    var name = document.getElementById("name").value;
+    var age = document.getElementById("age").value;
+    var academy = document.getElementById("academy").value;
+    var address = document.getElementById("address").value;
+    var phone = document.getElementById("phone").value;
+
+    // Envía los datos a Firestore
+    db.collection("usuarios").add({
+      nombre: name,
+      edad: age,
+      academia: academy,
+      direccion: address,
+      telefono: phone
+    })
+    .then(function(docRef) {
+      alert("Usuario registrado con éxito, ID: " + docRef.id);
+      // Opcional: Limpiar el formulario después de enviar los datos
+      document.getElementById("registrationForm").reset();
+    })
+    .catch(function(error) {
+      console.error("Error al agregar el documento: ", error);
+    });
+  });
+</script>
+
   </script>
 </head>
 <body>
