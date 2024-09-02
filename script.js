@@ -26,12 +26,14 @@ document.getElementById('registroForm').addEventListener('submit', function(even
 });
 // Configuración de Firebase
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_AUTH_DOMAIN",
-    projectId: "TU_PROJECT_ID",
-    storageBucket: "TU_STORAGE_BUCKET",
-    messagingSenderId: "TU_MESSAGING_SENDER_ID",
-    appId: "TU_APP_ID"
+    apiKey: "AIzaSyACNNOpNzgVyBLyXLelJv4Zh5bGBgcTA5E",
+    authDomain: "lg-academy-f0c8e.firebaseapp.com",
+    projectId: "lg-academy-f0c8e",
+    storageBucket: "lg-academy-f0c8e.appspot.com",
+    messagingSenderId: "1097625112750",
+    appId: "1:1097625112750:web:a7513c04064ccbc3889d3f"
+    measurementId:"G-6WZL62QSZV"
+
 };
 
 // Inicializar Firebase
