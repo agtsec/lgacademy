@@ -1,29 +1,56 @@
-document.getElementById('registration-form').addEventListener('submit', function(event) {
+// script.js
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+// Get the modal
+var modal = document.getElementById("popup");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user submits the registration form
+document.getElementById("registerForm").addEventListener("submit", function(event) {
     event.preventDefault();
+    var firstName = document.getElementById("firstName").value;
+    var lastName = document.getElementById("lastName").value;
 
-    const name = document.getElementById('name').value;
-    const age = document.getElementById('age').value;
-    const academy = document.getElementById('academy').value;
-    const address = document.getElementById('address').value;
-    const phone = document.getElementById('phone').value;
+    // Generate the username
+    var generatedUsername = firstName.charAt(0) + lastName;
 
-    // Aquí guardas los datos en una base de datos o local storage
-    // Ejemplo con localStorage:
-    const userData = { name, age, academy, address, phone };
-    localStorage.setItem('user_' + phone, JSON.stringify(userData));
+    // Display the generated username in the popup
+    document.getElementById("generatedUser").textContent = "Usuario generado: " + generatedUsername;
+    modal.style.display = "block";
 
-    // Añadir la fila a la tabla
-    const table = document.getElementById('ratings-table').getElementsByTagName('tbody')[0];
-    const newRow = table.insertRow();
+    // Reset form fields
+    document.getElementById("registerForm").reset();
+});
 
-    newRow.insertCell(0).textContent = name;
-    newRow.insertCell(1).textContent = ''; // Condición
-    newRow.insertCell(2).textContent = ''; // Técnica
-    newRow.insertCell(3).textContent = ''; // Flexibilidad
-    newRow.insertCell(4).textContent = ''; // Expresión Corporal
-    newRow.insertCell(5).textContent = ''; // Flujo de Movimientos
-    newRow.insertCell(6).textContent = ''; // Percepción Auditiva
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
 
-    // Limpiar el formulario
-    document.getElementById('registration-form').reset();
+    // Simple authentication check
+    if (username === "lalogt" && password === "121316") {
+        alert("Inicio de sesión exitoso como administrador.");
+        // Aquí puedes redirigir al administrador a la página de evaluación
+    } else {
+        alert("Credenciales incorrectas.");
+    }
 });
