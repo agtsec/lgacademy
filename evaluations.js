@@ -62,6 +62,9 @@ function saveEvaluation(index) {
     localStorage.setItem("dancers", JSON.stringify(dancers));
 
     alert("Evaluación guardada.");
+    if (!isAdmin) {
+    alert("No tienes permiso para acceder a esta página.");
+    window.location.href = "index.html"; // Redirigir a la página de login
+} else {
+    loadTable();
 }
-
-loadTable();
