@@ -1,131 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Academia de Baile</title>
-
-  <!-- Aquí puedes agregar tus estilos o enlaces a Bootstrap -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-  <!-- Agrega el script de Firebase aquí si prefieres cargarlo en el head -->
-  <!-- Firebase Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-  
-  
-  <script>
-    // Tu configuración de Firebase
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyACNNOpNzgVyBLyXLelJv4Zh5bGBgcTA5E",
-  authDomain: "lg-academy-f0c8e.firebaseapp.com",
-  projectId: "lg-academy-f0c8e",
-  storageBucket: "lg-academy-f0c8e.appspot.com",
-  messagingSenderId: "1097625112750",
-  appId: "1:1097625112750:web:a7513c04064ccbc3889d3f",
-  measurementId: "G-6WZL62QSZV"
-};
-    };
-    // Inicializa Firebase
-    
-    firebase.initializeApp(firebaseConfig);
-    <script>
-  // Inicializa Firestore
-  var db = firebase.firestore();
-
-  // Escucha el envío del formulario
-  document.getElementById("registrationForm").addEventListener("submit", function(event){
-    event.preventDefault(); // Prevenir que la página se recargue
-
-    // Captura los datos del formulario
-    var name = document.getElementById("name").value;
-    var age = document.getElementById("age").value;
-    var academy = document.getElementById("academy").value;
-    var address = document.getElementById("address").value;
-    var phone = document.getElementById("phone").value;
-
-    // Envía los datos a Firestore
-    db.collection("usuarios").add({
-      nombre: name,
-      edad: age,
-      academia: academy,
-      direccion: address,
-      telefono: phone
-    })
-    .then(function(docRef) {
-      alert("Usuario registrado con éxito, ID: " + docRef.id);
-      // Opcional: Limpiar el formulario después de enviar los datos
-      document.getElementById("registrationForm").reset();
-    })
-    .catch(function(error) {
-      console.error("Error al agregar el documento: ", error);
-    });
-  });
-</script>
-
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia de Baile - Registro</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-  <!-- Contenido de la página -->
-  <div class="container">
-    <h1>Registro para la Academia de Baile</h1>
-    <!-- Aquí irá el formulario de registro -->
-    <form id="registrationForm">
-  <label for="name">Nombre:</label>
-  <input type="text" id="name" name="name">
-  
-  <label for="age">Edad:</label>
-  <input type="number" id="age" name="age">
-  
-  <label for="academy">Academia:</label>
-  <select id="academy" name="academy">
-    <option value="Apodaca">Apodaca</option>
-    <option value="Juarez">Juárez</option>
-    <option value="Escobedo">Escobedo</option>
-    <option value="SanNicolas">San Nicolás</option>
-  </select>
-  
-  <label for="address">Dirección:</label>
-  <input type="text" id="address" name="address">
-  
-  <label for="phone">Teléfono:</label>
-  <input type="tel" id="phone" name="phone">
-  
-  <button type="submit">Registrar</button>
-</form>
+    <h1>Registro de Usuarios</h1>
+    <form id="registroForm">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
 
-  </div>
+        <label for="edad">Edad:</label>
+        <input type="number" id="edad" name="edad" required>
 
-  <!-- Agrega el script de Firebase justo antes de cerrar el body si prefieres cargarlo al final -->
-  <!-- También puedes colocar aquí el script de Firebase en lugar de en el head -->
-  <script>
-    // Código adicional para manejar Firestore o autenticación
-    var db = firebase.firestore();
-    db.collection("test").add({
-      prueba: "Hola Firebase!"
-    })
-    .then((docRef) => {
-      console.log("Documento agregado con ID: ", docRef.id);
-    })
-    .catch((error) => {
-      console.error("Error al agregar documento: ", error);
-    });
-    <div id="userList"></div>
+        <label for="academia">Academia:</label>
+        <select id="academia" name="academia" required>
+            <option value="Apodaca">Apodaca</option>
+            <option value="Juárez">Juárez</option>
+            <option value="Escobedo">Escobedo</option>
+            <option value="San Nicolás">San Nicolás</option>
+        </select>
 
-<script>
-  // Obtén todos los usuarios y muestra sus datos
-  db.collection("usuarios").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      // Muestra cada usuario registrado
-      document.getElementById("userList").innerHTML += `
-        <p><strong>${doc.data().nombre}</strong> - Edad: ${doc.data().edad}, Academia: ${doc.data().academia}</p>
-      `;
-    });
-  });
-</script>
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" required>
 
-  </script>
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" required>
+
+        <button type="submit">Registrar</button>
+    </form>
+
+    <h2>Tabla de Calificaciones</h2>
+    <table id="tablaCalificaciones">
+        <thead>
+            <tr>
+                <th>Condición</th>
+                <th>Técnica</th>
+                <th>Flexibilidad</th>
+                <th>Expresión Corporal</th>
+                <th>Flujo de Movimientos</th>
+                <th>Percepción Auditiva</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Las filas se agregarán dinámicamente aquí -->
+        </tbody>
+    </table>
+
+    <script src="script.js"></script>
 </body>
 </html>
+
