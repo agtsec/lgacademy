@@ -109,6 +109,20 @@
     .catch((error) => {
       console.error("Error al agregar documento: ", error);
     });
+    <div id="userList"></div>
+
+<script>
+  // Obtén todos los usuarios y muestra sus datos
+  db.collection("usuarios").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      // Muestra cada usuario registrado
+      document.getElementById("userList").innerHTML += `
+        <p><strong>${doc.data().nombre}</strong> - Edad: ${doc.data().edad}, Academia: ${doc.data().academia}</p>
+      `;
+    });
+  });
+</script>
+
   </script>
 </body>
 </html>
