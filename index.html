@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LG Crew - Registro de Bailarinas</title>
+    <title>LG Crew - Registro e Inicio de Sesión</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,6 +65,10 @@
             text-align: center;
         }
 
+        .hidden {
+            display: none;
+        }
+
         .admin-panel {
             display: none;
         }
@@ -73,11 +77,22 @@
 <body>
 
     <div class="container">
-        <h1>Registro de Bailarinas - LG Crew</h1>
+        <h1>LG Crew - Registro e Inicio de Sesión</h1>
         
         <div id="error" class="error"></div>
 
-        <form id="registerForm">
+        <!-- Formulario de inicio de sesión -->
+        <div id="loginForm">
+            <h2>Iniciar Sesión</h2>
+            <input type="text" id="loginTelefono" placeholder="Número de teléfono o correo" required>
+            <input type="password" id="loginPassword" placeholder="Contraseña" required>
+            <button onclick="login()">Iniciar Sesión</button>
+            <p>¿No tienes cuenta? <a href="#" onclick="showRegisterForm()">Regístrate aquí</a></p>
+        </div>
+
+        <!-- Formulario de registro -->
+        <div id="registerForm" class="hidden">
+            <h2>Registro de Bailarinas</h2>
             <input type="text" id="nombre" placeholder="Nombre" required>
             <input type="text" id="apellido" placeholder="Apellido" required>
             <input type="number" id="edad" placeholder="Edad" required>
@@ -92,10 +107,12 @@
             <input type="tel" id="telefono" placeholder="Número de teléfono" required>
             <input type="password" id="password" placeholder="Contraseña" required>
             <input type="password" id="confirmPassword" placeholder="Confirmar Contraseña" required>
-            <button type="submit">Registrarse</button>
-        </form>
+            <button onclick="register()">Registrarse</button>
+            <p>¿Ya tienes cuenta? <a href="#" onclick="showLoginForm()">Inicia sesión aquí</a></p>
+        </div>
 
-        <div id="adminPanel" class="admin-panel">
+        <!-- Panel de administrador -->
+        <div id="adminPanel" class="admin-panel hidden">
             <h2>Panel de Administrador</h2>
             <table id="bailarinasTable">
                 <thead>
@@ -113,6 +130,7 @@
                 </thead>
                 <tbody></tbody>
             </table>
+            <button onclick="logout()">Cerrar Sesión</button>
         </div>
     </div>
 
