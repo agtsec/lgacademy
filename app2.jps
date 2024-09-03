@@ -1,0 +1,129 @@
+// Configuración de Firebase
+const firebaseConfig = {
+    apiKey: "TU_API_KEY",
+    authDomain: "TU_AUTH_DOMAIN",
+    projectId: "TU_PROJECT_ID",
+    storageBucket: "TU_STORAGE_BUCKET",
+    messagingSenderId: "TU_MESSAGING_SENDER_ID",
+    appId: "TU_APP_ID"
+};
+
+// Inicializar Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// Función para registrar una bailarina
+document.getElementById('registerForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const nombre = document.getElementById('nombre').value;
+    const apellido = document.getElementById('apellido').value;
+    const edad = document.getElementById('edad').value;
+    const academia = document.getElementById('academia').value;
+    const direccion = document.getElementById('direccion').value;
+    const telefono = document.getElementById('telefono').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (password !== confirmPassword) {
+        document.getElementById('error').textContent = 'Las contraseñas no coinciden.';
+        return;
+    }
+
+    auth.createUserWithEmailAndPassword(telefono + "@lgcrew.com", password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+
+            // Guardar la información en Firestore
+            return db.collection('bailarinas').doc(user.uid).set({
+                nombre: nombre,
+                apellido: apellido,
+                edad: edad,
+                academia: academia,
+                direccion: direccion,
+                telefono: telefono,
+                evaluaciones: {
+                    condicion: '',
+                    tecnica: '',
+                    flexibilidad: '',
+                    expresionCorporal: '',
+                    flujoMovimientos: '',
+                    percepcionAuditiva: ''
+                }
+            });
+        })
+        .then(() => {
+            document.getElementById('registerForm').reset();
+            alert('Registro exitoso.');
+        })
+        .catch((error) => {
+            document.getElementById('error').textContent = error.message;
+        });
+});
+
+// Autenticación de administrador y carga del panel
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        // Verificar si es administrador
+        if (user.email === "admin@lgcrew.com") {
+            document.getElementById('adminPanel').style.display = 'block';
+            cargarBailarinas();
+        }
+    }
+});
+
+// Cargar bailarinas para el panel del administrador
+function cargarBailarinas() {
+    db.collection('bailarinas').get().then((querySnapshot) => {
+        const tableBody = document.getElementById('bailarinasTable').getElementsByTagName('tbody')[0];
+        tableBody.innerHTML = '';
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const row = tableBody.insertRow();
+
+            row.insertCell(0).textContent = data.nombre;
+            row.insertCell(1).textContent = data.apellido;
+
+            const condicionCell = row.insertCell(2);
+            condicionCell.innerHTML = `<input type="text" value="${data.evaluaciones.condicion || ''}" data-id="${doc.id}" data-field="condicion">`;
+
+            const tecnicaCell = row.insertCell(3);
+            tecnicaCell.innerHTML = `<input type="text" value="${data.evaluaciones.tecnica || ''}" data-id="${doc.id}" data-field="tecnica">`;
+
+            const flexibilidadCell = row.insertCell(4);
+            flexibilidadCell.innerHTML = `<input type="text" value="${data.evaluaciones.flexibilidad || ''}" data-id="${doc.id}" data-field="flexibilidad">`;
+
+            const expresionCorporalCell = row.insertCell(5);
+            expresionCorporalCell.innerHTML = `<input type="text" value="${data.evaluaciones.expresionCorporal || ''}" data-id="${doc.id}" data-field="expresionCorporal">`;
+
+            const flujoMovimientosCell = row.insertCell(6);
+            flujoMovimientosCell.innerHTML = `<input type="text" value="${data.evaluaciones.flujoMovimientos || ''}" data-id="${doc.id}" data-field="flujoMovimientos">`;
+
+            const percepcionAuditivaCell = row.insertCell(7);
+            percepcionAuditivaCell.innerHTML = `<input type="text" value="${data.evaluaciones.percepcionAuditiva || ''}" data-id="${doc.id}" data-field="percepcionAuditiva">`;
+
+            const accionesCell = row.insertCell(8);
+            accionesCell.innerHTML = `<button onclick="guardarEvaluacion('${doc.id}')">Guardar</button>`;
+        });
+    });
+}
+
+// Guardar evaluación en la base de datos
+function guardarEvaluacion(docId) {
+    const inputs = document.querySelectorAll(`[data-id="${docId}"]`);
+    const evaluaciones = {};
+
+    inputs.forEach(input => {
+        evaluaciones[input.dataset.field] = input.value;
+    });
+
+    db.collection('bailarinas').doc(docId).update({
+        evaluaciones: evaluaciones
+    }).then(() => {
+        alert('Evaluación actualizada.');
+    }).catch((error) => {
+        alert('Error al actualizar: ' + error.message);
+    });
+}
